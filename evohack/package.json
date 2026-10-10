@@ -1,0 +1,9 @@
+{
+  "name": "receipt-warranty-vault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A mobile-friendly receipt and warranty tracking prototype.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

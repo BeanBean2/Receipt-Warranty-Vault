@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vaultly — Receipt & Warranty Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="#" class="brand"><span class="brand-mark">V</span><span>vaultly</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span>▦</span>Overview</button>
+        <button class="nav-item" data-view="receipts"><span>▤</span>My receipts <b>24</b></button>
+        <button class="nav-item" data-view="warranties"><span>◷</span>Warranties <i>3</i></button>
+        <button class="nav-item" data-view="insights"><span>◔</span>Insights</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="nav-item" data-view="settings"><span>⚙</span>Settings</button>
+        <button class="profile" id="profileButton" aria-label="Open account settings"><div class="avatar">AL</div><div><strong>Alex Liu</strong><small>Personal vault</small></div><span class="dots">•••</span></button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">V</span> vaultly</div>
+        <div class="greeting"><p>Saturday, October 10</p><h1>Good morning, Alex <span>✦</span></h1></div>
+        <div class="header-actions"><button class="icon-button" aria-label="Notifications">♧<em></em></button><button class="help">?</button><button class="add-button" id="openUpload"><span>＋</span> Add receipt</button></div>
+      </header>
+
+      <div id="dashboardView">
+      <section class="hero panel">
+        <div class="hero-content"><div class="eyebrow"><span class="sparkle">✦</span> YOUR PERSONAL PAPER TRAIL</div><h2>Everything you own,<br><em>protected.</em></h2><p>Keep receipts in one place and never miss a warranty deadline again.</p><button class="hero-upload" id="heroUpload">Upload a receipt <span>→</span></button></div>
+        <div class="hero-illustration" aria-hidden="true"><div class="leaf leaf-1"></div><div class="leaf leaf-2"></div><div class="receipt-art"><div class="art-brand"><span class="tiny-logo">⌂</span><b>NORTHSTAR</b></div><div class="art-lines"><i></i><i></i><i></i></div><div class="art-total"><span>TOTAL</span><b>$1,299.00</b></div><div class="barcode">||| || ||| | ||||</div></div><div class="shield">✓</div></div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-icon lilac">▤</div><div><span>RECEIPTS SAVED</span><strong>24</strong><small class="positive">↑ 4 <b>this month</b></small></div></article>
+        <article class="stat-card"><div class="stat-icon peach">⌑</div><div><span>TRACKED VALUE</span><strong>$8,430<sup>.75</sup></strong><small>Across 18 items</small></div></article>
+        <article class="stat-card urgency"><div class="stat-icon yellow">◷</div><div><span>EXPIRING SOON</span><strong>3</strong><small><b>Next: 12 days</b></small></div><button class="arrow-link" data-view-target="warranties">→</button></article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel recent-panel"><div class="section-heading"><div><h3>Recent receipts</h3><p>Your latest purchases, organized automatically.</p></div><button class="text-link" data-view-target="receipts">View all <span>→</span></button></div><div class="receipt-list" id="recentList"></div></div>
+        <div class="panel warranty-panel"><div class="section-heading"><div><h3>Warranty watch</h3><p>Stay ahead of expiring coverage.</p></div><button class="text-link" data-view-target="warranties">View all <span>→</span></button></div><div class="warranty-list" id="warrantyList"></div><div class="reminder-note"><span>✦</span><p><b>We’ll remind you</b> 30 days before a warranty expires.</p></div></div>
+      </section>
+      </div>
+      <section class="workspace-view hidden" id="workspaceView" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="upload-modal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+      <button class="close-modal" id="closeUpload" aria-label="Close">×</button>
+      <div class="modal-step" id="uploadStep"><div class="modal-icon">⌁</div><p class="eyebrow">SMART RECEIPT SCAN</p><h2 id="uploadTitle">Add a receipt</h2><p class="modal-copy">Drop an image, PDF, or e-receipt. We’ll find the details and put its warranty on watch.</p><label class="drop-zone" for="receiptFile"><input id="receiptFile" type="file" accept="image/*,.pdf" hidden><span class="upload-cloud">↑</span><b>Drop your receipt here</b><small>or click to browse · JPG, PNG, PDF</small></label><div class="sample-row"><span>Try the demo:</span><button id="demoScan">Scan sample receipt →</button></div></div>
+      <div class="modal-step hidden" id="scanningStep"><div class="scanner"><div class="scan-paper"><div></div><i></i><i></i><i></i><b></b></div><div class="scan-line"></div></div><h2>Reading your receipt</h2><p class="modal-copy">Our AI is finding the important bits…</p><div class="scan-progress"><i></i></div></div>
+      <div class="modal-step hidden" id="resultStep"><div class="success-check">✓</div><p class="eyebrow">SCAN COMPLETE</p><h2>Receipt saved to your vault</h2><div class="extract-card"><div><span>Merchant</span><b>Northstar Electronics</b></div><div><span>Purchase</span><b>MacBook Air 15-inch</b></div><div><span>Warranty ends</span><b class="green-text">Oct 10, 2027</b></div></div><button class="done-button" id="doneUpload">View in my vault</button></div>
+    </div>
+  </div>
+  <div class="toast" id="toast">Receipt added to your vault <span>✓</span></div>
+  <script src="app.js"></script>
+</body>
+</html>
